@@ -23,7 +23,7 @@ import com.bookcase.system.bookcoremgmt.otd.bookcaselayerinside.BookCaseLayerIns
  * @since    JDK 1.8
  * @see 	 
  */
-public class BookcaseLayerinsideConverter {
+public class BookCaseLayerinsideConverter {
 
 	public static BookCaseLayerInsideRspBody CoredataBookcaseLayerinside2BookCaseLayerInsideRspBody(
 			CoredataBookcaseLayerinside layerinside) {

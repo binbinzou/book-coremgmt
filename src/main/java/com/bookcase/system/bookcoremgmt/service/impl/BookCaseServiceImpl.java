@@ -26,7 +26,7 @@ import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqParam;
 import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 import com.bookcase.system.bookcoremgmt.repository.CoredataBookCaseRepository;
 import com.bookcase.system.bookcoremgmt.service.BookCaseService;
-import com.bookcase.system.bookcoremgmt.utils.BookcaseConverter;
+import com.bookcase.system.bookcoremgmt.utils.BookCaseConverter;
 
 @Service
 @Slf4j
@@ -51,7 +51,7 @@ public class BookCaseServiceImpl implements BookCaseService {
 			pageInfo.setTotalcount((int) pg.getTotalElements());
 			pageInfo.setTotalpage(pg.getTotalPages());
 			for (CoredataBookcase coredataBookcase : pg.getContent()) {
-				rspBodies.add(BookcaseConverter
+				rspBodies.add(BookCaseConverter
 								.coredataBookcase2BookCaseRspBody(coredataBookcase));
 			}
 		}
@@ -67,7 +67,7 @@ public class BookCaseServiceImpl implements BookCaseService {
 			String bookcaseId) {
 		GeneralContentResult<BookCaseRspBody> result = new GeneralContentResult<BookCaseRspBody>();
 		CoredataBookcase bookcase  = coredataBookCaseRepository.findOne(bookcaseId);
-		BookCaseRspBody rspBody = BookcaseConverter.coredataBookcase2BookCaseRspBody(bookcase);
+		BookCaseRspBody rspBody = BookCaseConverter.coredataBookcase2BookCaseRspBody(bookcase);
 		result.setCode(CommonResultCodeConstant.OPERATE_SUCCESS);
 		result.setMessage("查询成功");
 		result.setContent(rspBody);
@@ -79,7 +79,7 @@ public class BookCaseServiceImpl implements BookCaseService {
 	public GeneralContentResult<String> createBookCase(
 			BookCaseReqBody bookCaseReqBody) {
 		GeneralContentResult<String> result = new GeneralContentResult<String>();
-		CoredataBookcase bookcase = BookcaseConverter.bookCaseReqBody2CoredataBookcase(bookCaseReqBody);
+		CoredataBookcase bookcase = BookCaseConverter.bookCaseReqBody2CoredataBookcase(bookCaseReqBody);
 		bookcase.setCreator("XXX");
 		bookcase.setOrgId("XXX");
 		bookcase.setStatus(BookCoredataMgmtConstant.STATUS_GLOBAL_ENABLE);
@@ -101,7 +101,7 @@ public class BookCaseServiceImpl implements BookCaseService {
 			result.setMessage("该更新数据不存在");
 			return result;
 		}
-		CoredataBookcase bookcase = BookcaseConverter
+		CoredataBookcase bookcase = BookCaseConverter
 				.bookCaseReqBody2CoredataBookcase(bookCaseReqBody);
 		bookcase.setStatus(BookCoredataMgmtConstant.STATUS_GLOBAL_ENABLE);
 		bookcase.setCreator("XXX");

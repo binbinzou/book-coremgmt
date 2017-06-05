@@ -37,7 +37,7 @@ import com.bookcase.system.bookcoremgmt.otd.bookdispatch.BookDispatchRspBody;
 import com.bookcase.system.bookcoremgmt.repository.CoredataBookDispatchRepository;
 import com.bookcase.system.bookcoremgmt.service.BookDispatchService;
 import com.bookcase.system.bookcoremgmt.utils.BookDispatchConverter;
-import com.bookcase.system.bookcoremgmt.utils.BookcaseConverter;
+import com.bookcase.system.bookcoremgmt.utils.BookCaseConverter;
 
 /**
  * ClassName:BookDispatchServiceImpl <br/>

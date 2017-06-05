@@ -36,8 +36,8 @@ import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 import com.bookcase.system.bookcoremgmt.otd.bookcaselayerinside.BookCaseLayerInsideRspBody;
 import com.bookcase.system.bookcoremgmt.repository.CoredataBookcaseLayerinsideRepository;
 import com.bookcase.system.bookcoremgmt.service.BookCaseLayerInsideService;
-import com.bookcase.system.bookcoremgmt.utils.BookcaseConverter;
-import com.bookcase.system.bookcoremgmt.utils.BookcaseLayerinsideConverter;
+import com.bookcase.system.bookcoremgmt.utils.BookCaseConverter;
+import com.bookcase.system.bookcoremgmt.utils.BookCaseLayerinsideConverter;
 
 /**
  * ClassName:BookTypelaer <br/>
@@ -72,7 +72,7 @@ public class BookCaseLayerInsideServiceImpl implements BookCaseLayerInsideServic
 			pageInfo.setTotalcount((int) pg.getTotalElements());
 			pageInfo.setTotalpage(pg.getTotalPages());
 			for (CoredataBookcaseLayerinside layerinside : pg.getContent()) {
-				rspBodies.add(BookcaseLayerinsideConverter
+				rspBodies.add(BookCaseLayerinsideConverter
 								.CoredataBookcaseLayerinside2BookCaseLayerInsideRspBody(layerinside));
 			}
 		}
@@ -88,7 +88,7 @@ public class BookCaseLayerInsideServiceImpl implements BookCaseLayerInsideServic
 			String bookCaseLayerInsideId) {
 		GeneralContentResult<BookCaseLayerInsideRspBody> result = new GeneralContentResult<BookCaseLayerInsideRspBody>();
 		CoredataBookcaseLayerinside layerinside  = coredataBookcaseLayerinsideRepository.findOne(bookCaseLayerInsideId);
-		BookCaseLayerInsideRspBody rspBody = BookcaseLayerinsideConverter.CoredataBookcaseLayerinside2BookCaseLayerInsideRspBody(layerinside);
+		BookCaseLayerInsideRspBody rspBody = BookCaseLayerinsideConverter.CoredataBookcaseLayerinside2BookCaseLayerInsideRspBody(layerinside);
 		result.setCode(CommonResultCodeConstant.OPERATE_SUCCESS);
 		result.setMessage("查询成功");
 		result.setContent(rspBody);
@@ -100,7 +100,7 @@ public class BookCaseLayerInsideServiceImpl implements BookCaseLayerInsideServic
 	public GeneralContentResult<String> createBookCaseLayerInside(
 			BookCaseLayerInsideReqBody layerInsideReqBody) {
 		GeneralContentResult<String> result = new GeneralContentResult<String>();
-		CoredataBookcaseLayerinside layerinside = BookcaseLayerinsideConverter.bookCaseLayerInsideReqBody2CoredataBookcaseLayerinside(layerInsideReqBody);
+		CoredataBookcaseLayerinside layerinside = BookCaseLayerinsideConverter.bookCaseLayerInsideReqBody2CoredataBookcaseLayerinside(layerInsideReqBody);
 		layerinside.setCreator("XXX");
 		layerinside.setOrgId("XXX");
 		layerinside.setStatus(BookCoredataMgmtConstant.STATUS_GLOBAL_ENABLE);
@@ -122,7 +122,7 @@ public class BookCaseLayerInsideServiceImpl implements BookCaseLayerInsideServic
 			result.setMessage("该更新数据不存在");
 			return result;
 		}
-		CoredataBookcaseLayerinside layerinside = BookcaseLayerinsideConverter
+		CoredataBookcaseLayerinside layerinside = BookCaseLayerinsideConverter
 				.bookCaseLayerInsideReqBody2CoredataBookcaseLayerinside(layerInsideReqBody);
 		layerinside.setStatus(BookCoredataMgmtConstant.STATUS_GLOBAL_ENABLE);
 		layerinside.setCreator("XXX");

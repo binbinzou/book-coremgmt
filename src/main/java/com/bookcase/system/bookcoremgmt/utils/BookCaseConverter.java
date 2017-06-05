@@ -23,7 +23,7 @@ import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
  * @since    JDK 1.8
  * @see 	 
  */
-public class BookcaseConverter {
+public class BookCaseConverter {
 
 	public static BookCaseRspBody coredataBookcase2BookCaseRspBody(
 			CoredataBookcase coredataBookcase) {

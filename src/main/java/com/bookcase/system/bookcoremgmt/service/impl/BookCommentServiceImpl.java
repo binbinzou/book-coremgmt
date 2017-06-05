@@ -36,8 +36,8 @@ import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 import com.bookcase.system.bookcoremgmt.otd.bookcomment.BookCommentRspBody;
 import com.bookcase.system.bookcoremgmt.repository.CoredataBookCommentRepository;
 import com.bookcase.system.bookcoremgmt.service.BookCommentService;
-import com.bookcase.system.bookcoremgmt.utils.BookcaseConverter;
-import com.bookcase.system.bookcoremgmt.utils.BookcommentConverter;
+import com.bookcase.system.bookcoremgmt.utils.BookCaseConverter;
+import com.bookcase.system.bookcoremgmt.utils.BookCommentConverter;
 
 /**
  * ClassName:BookCommentServiceImpl <br/>
@@ -72,7 +72,7 @@ public class BookCommentServiceImpl implements BookCommentService {
 			pageInfo.setTotalcount((int) pg.getTotalElements());
 			pageInfo.setTotalpage(pg.getTotalPages());
 			for (CoredataBookcomment coredataBookcomment : pg.getContent()) {
-				rspBodies.add(BookcommentConverter
+				rspBodies.add(BookCommentConverter
 								.coredataBookcomment2BookCommentRspBody(coredataBookcomment));
 			}
 		}
@@ -88,7 +88,7 @@ public class BookCommentServiceImpl implements BookCommentService {
 			String bookCommentId) {
 		GeneralContentResult<BookCommentRspBody> result = new GeneralContentResult<BookCommentRspBody>();
 		CoredataBookcomment bookcomment  = coredataBookCommentRepository.findOne(bookCommentId);
-		BookCommentRspBody rspBody = BookcommentConverter.coredataBookcomment2BookCommentRspBody(bookcomment);
+		BookCommentRspBody rspBody = BookCommentConverter.coredataBookcomment2BookCommentRspBody(bookcomment);
 		result.setCode(CommonResultCodeConstant.OPERATE_SUCCESS);
 		result.setMessage("查询成功");
 		result.setContent(rspBody);
@@ -100,7 +100,7 @@ public class BookCommentServiceImpl implements BookCommentService {
 	public GeneralContentResult<String> createBookComment(
 			BookCommentReqBody bookCommentReqBody) {
 		GeneralContentResult<String> result = new GeneralContentResult<String>();
-		CoredataBookcomment bookcomment = BookcommentConverter.bookCommentReqBody2CoredataBookcomment(bookCommentReqBody);
+		CoredataBookcomment bookcomment = BookCommentConverter.bookCommentReqBody2CoredataBookcomment(bookCommentReqBody);
 		bookcomment.setCreator("XXX");
 		bookcomment.setStatus(BookCoredataMgmtConstant.STATUS_GLOBAL_ENABLE);
 		bookcomment = coredataBookCommentRepository.save(bookcomment);
@@ -121,7 +121,7 @@ public class BookCommentServiceImpl implements BookCommentService {
 			result.setMessage("该更新数据不存在");
 			return result;
 		}
-		CoredataBookcomment bookcomment = BookcommentConverter
+		CoredataBookcomment bookcomment = BookCommentConverter
 				.bookCommentReqBody2CoredataBookcomment(bookCommentReqBody);
 		bookcomment.setStatus(BookCoredataMgmtConstant.STATUS_GLOBAL_ENABLE);
 		bookcomment.setCreator("XXX");

@@ -23,7 +23,7 @@ import com.bookcase.system.bookcoremgmt.otd.bookcomment.BookCommentRspBody;
  * @since    JDK 1.8
  * @see 	 
  */
-public class BookcommentConverter {
+public class BookCommentConverter {
 
 	public static BookCommentRspBody coredataBookcomment2BookCommentRspBody(
 			CoredataBookcomment coredataBookcomment) {
