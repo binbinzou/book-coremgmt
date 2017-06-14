@@ -11,6 +11,7 @@ package com.bookcase.system.bookcoremgmt.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -30,7 +31,7 @@ import com.bookcase.system.bookcoremgmt.domain.CoredataBookcase;
 public interface CoredataBookCaseRepository extends JpaRepository<CoredataBookcase, String>{
 
 	@Query("SELECT a FROM CoredataBookcase a where a.status<" + BookCoredataMgmtConstant.STATUS_GLOBAL_DELETED)
-	Page<CoredataBookcase> findBookCases(PageRequest request);
+	Page<CoredataBookcase> findBookCases(Pageable pageable);
 
 	@Query("SELECT a FROM CoredataBookcase a where a.id = ?1 AND a.status<" + BookCoredataMgmtConstant.STATUS_GLOBAL_DELETED)
 	CoredataBookcase findBookCaseById(String bookcaseId);

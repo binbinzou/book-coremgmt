@@ -11,6 +11,7 @@ package com.bookcase.system.bookcoremgmt.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -33,7 +34,7 @@ public interface CoredataBookcaseLayerinsideRepository extends JpaRepository<Cor
 
 	@Query("SELECT a FROM CoredataBookcaseLayerinside a where a.status<" + BookCoredataMgmtConstant.STATUS_GLOBAL_DELETED)
 	Page<CoredataBookcaseLayerinside> findCoredataBookcaseLayerInsides(
-			PageRequest request);
+			Pageable pageable);
 
 	@Query("SELECT a FROM CoredataBookcaseLayerinside a where a.id = ?1 AND a.status<" + BookCoredataMgmtConstant.STATUS_GLOBAL_DELETED)
 	CoredataBookcaseLayerinside findCoredataBookcaseLayerInsideById(

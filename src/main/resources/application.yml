@@ -1,6 +1,12 @@
 server:
   port: 9112
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
 spring:
+  application:
+    name: bookcoremgmt
   datasource:
     url: jdbc:mysql://localhost:3306/bookcase
     username: bookcase
