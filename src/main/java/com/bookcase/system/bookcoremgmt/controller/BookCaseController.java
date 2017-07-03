@@ -20,9 +20,11 @@ import com.bookcase.common.system.bookframework.returnresult.GeneralPagingResult
 import com.bookcase.common.system.bookframework.returnresult.GeneralResult;
 import com.bookcase.system.bookbasemgmt.dto.bookauthor.BookAuthorReqBody;
 import com.bookcase.system.bookbasemgmt.dto.bookauthor.BookAuthorReqParam;
+import com.bookcase.system.bookbasemgmt.dto.bookauthor.BookAuthorReqQuery;
 import com.bookcase.system.bookbasemgmt.otd.bookauthor.BookAuthorRspBody;
 import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqBody;
 import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqParam;
+import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqQuery;
 import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 import com.bookcase.system.bookcoremgmt.service.BookCaseService;
 
@@ -40,10 +42,10 @@ public class BookCaseController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(paramType = "path", name = "page", dataType = "String", required = true, value = "第几页", defaultValue = "1"),
 			@ApiImplicitParam(paramType = "path", name = "size", dataType = "String", required = true, value = "每页数量", defaultValue = "10") })
-	public GeneralPagingResult<List<BookCaseRspBody>> findBookCases(
+	public GeneralPagingResult<List<BookCaseRspBody>> findBookCases(@RequestBody BookCaseReqQuery query,
 			@PathVariable("page") String page, @PathVariable("size") String size) {
 		GeneralPagingResult<List<BookCaseRspBody>> result = bookCaseService
-				.findBookCases(page, size);
+				.findBookCases(query,page, size);
 		return result;
 	}
 
@@ -78,11 +80,21 @@ public class BookCaseController {
 	}
 	
 	@ApiOperation(value = "删除图书柜信息(todo)")
-	@RequestMapping(value = "/auth/bookcases", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/auth/bookcases/{bookcaseId}", method = RequestMethod.DELETE)
 	public GeneralResult deleteBookCases(
-			@RequestBody BookCaseReqParam bookCaseReqParam) {
+			@PathVariable("bookcaseId") String bookcaseId) {
 		GeneralResult result = bookCaseService
-				.deleteBookCases(bookCaseReqParam);
+				.deleteBookCases(bookcaseId);
+		return result;
+	}
+	
+	@ApiOperation(value = "根据name查询图书柜信息(todo)")
+	@RequestMapping(value = "/auth/bookcases/name/{name}", method = RequestMethod.GET)
+	@ApiImplicitParams({ @ApiImplicitParam(paramType = "path", name = "name", dataType = "String", required = true, value = "图书柜信息的名字", defaultValue = "") })
+	public GeneralContentResult<List<BookCaseRspBody>> findBookCaseByName(
+			@PathVariable("name") String name) {
+		GeneralContentResult<List<BookCaseRspBody>> result = bookCaseService
+				.findBookCaseByName(name);
 		return result;
 	}
 	

@@ -28,13 +28,16 @@ import com.bookcase.common.system.bookframework.returnresult.GeneralPagingResult
 import com.bookcase.common.system.bookframework.returnresult.GeneralResult;
 import com.bookcase.system.bookcoremgmt.constant.BookCoredataMgmtConstant;
 import com.bookcase.system.bookcoremgmt.constant.BookCoredataMgmtResultConstant;
+import com.bookcase.system.bookcoremgmt.domain.CoredataBookcase;
 import com.bookcase.system.bookcoremgmt.domain.CoredataBookdispatch;
 import com.bookcase.system.bookcoremgmt.domain.CoredataBookmsg;
 import com.bookcase.system.bookcoremgmt.dto.bookmsg.BookMsgReqBody;
 import com.bookcase.system.bookcoremgmt.dto.bookmsg.BookMsgReqParam;
+import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 import com.bookcase.system.bookcoremgmt.otd.bookmsg.BookMsgRspBody;
 import com.bookcase.system.bookcoremgmt.repository.CoredataBookMsgRepository;
 import com.bookcase.system.bookcoremgmt.service.BookMsgService;
+import com.bookcase.system.bookcoremgmt.utils.BookCaseConverter;
 import com.bookcase.system.bookcoremgmt.utils.BookDispatchConverter;
 import com.bookcase.system.bookcoremgmt.utils.BookMsgConverter;
 
@@ -155,6 +158,7 @@ public class BookMsgServiceImpl implements BookMsgService {
 		}
 		return result;
 	}
+
 
 }
 

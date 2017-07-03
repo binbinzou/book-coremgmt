@@ -23,6 +23,7 @@ import com.bookcase.system.bookcoremgmt.constant.BookCoredataMgmtResultConstant;
 import com.bookcase.system.bookcoremgmt.domain.CoredataBookcase;
 import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqBody;
 import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqParam;
+import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqQuery;
 import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 import com.bookcase.system.bookcoremgmt.repository.CoredataBookCaseRepository;
 import com.bookcase.system.bookcoremgmt.service.BookCaseService;
@@ -36,14 +37,15 @@ public class BookCaseServiceImpl implements BookCaseService {
 	CoredataBookCaseRepository coredataBookCaseRepository;
 	
 	@Override
-	public GeneralPagingResult<List<BookCaseRspBody>> findBookCases(
+	public GeneralPagingResult<List<BookCaseRspBody>> findBookCases(BookCaseReqQuery query,
 			String page, String size) {
 		GeneralPagingResult<List<BookCaseRspBody>> result = new GeneralPagingResult<List<BookCaseRspBody>>();
 		List<BookCaseRspBody> rspBodies = new ArrayList<BookCaseRspBody>();
 		PageRequest request = new PageRequest(Integer.parseInt(page) - 1,
 				Integer.parseInt(size));
+		String name = query.getName();
 		Page<CoredataBookcase> pg = coredataBookCaseRepository
-				.findBookCases(request);
+				.findBookCases(name,request);
 		PageInfo pageInfo = new PageInfo();
 		if (pg != null && pg.getContent().size() > 0) {
 			pageInfo.setPage(pg.getNumber() + 1);
@@ -116,26 +118,31 @@ public class BookCaseServiceImpl implements BookCaseService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public GeneralResult deleteBookCases(BookCaseReqParam bookCaseReqParam) {
+	public GeneralResult deleteBookCases(String bookcaseId) {
 		GeneralResult result = new GeneralResult();
-		int size = bookCaseReqParam.getIds().size();
-		int tmpSize = 0;
-		for(String id : bookCaseReqParam.getIds()){
-			int tmp = coredataBookCaseRepository.setStatusFor(BookCoredataMgmtConstant.STATUS_GLOBAL_DELETED, id);
-			if(tmp>0){
-				tmpSize++;
-			}
-		}
-		if(size==tmpSize){
+		int tmp = coredataBookCaseRepository.setStatusFor(BookCoredataMgmtConstant.STATUS_GLOBAL_DELETED, bookcaseId);
+		if(1==tmp){
 			result.setCode(CommonResultCodeConstant.OPERATE_SUCCESS);
 			result.setMessage("删除成功");
-		}else if(size>tmpSize){
-			result.setCode(CommonResultCodeConstant.OPERATE_SUCCESS);
-			result.setMessage("部分数据删除成功");
-		}else if(tmpSize==0){
+		}else {
 			result.setCode(BookCoredataMgmtResultConstant.BOOKBASEMGMT_UNKNOW_ERROR);
 			result.setMessage("删除失败");
 		}
+		return result;
+	}
+
+	@Override
+	public GeneralContentResult<List<BookCaseRspBody>> findBookCaseByName(String name) {
+		GeneralContentResult<List<BookCaseRspBody>> result = new GeneralContentResult<List<BookCaseRspBody>>();
+		List<BookCaseRspBody> bodies = new ArrayList<BookCaseRspBody>();
+		List<CoredataBookcase> bookauthors = coredataBookCaseRepository
+				.findBookCaseByName(name);
+		for (CoredataBookcase bookcase : bookauthors) {
+			bodies.add(BookCaseConverter.coredataBookcase2BookCaseRspBody(bookcase));
+		}
+		result.setCode(CommonResultCodeConstant.OPERATE_SUCCESS);
+		result.setMessage("查询成功");
+		result.setContent(bodies);
 		return result;
 	}
 

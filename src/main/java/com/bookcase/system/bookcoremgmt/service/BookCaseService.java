@@ -7,11 +7,12 @@ import com.bookcase.common.system.bookframework.returnresult.GeneralPagingResult
 import com.bookcase.common.system.bookframework.returnresult.GeneralResult;
 import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqBody;
 import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqParam;
+import com.bookcase.system.bookcoremgmt.dto.bookcase.BookCaseReqQuery;
 import com.bookcase.system.bookcoremgmt.otd.bookcase.BookCaseRspBody;
 
 public interface BookCaseService {
 
-	GeneralPagingResult<List<BookCaseRspBody>> findBookCases(String page,
+	GeneralPagingResult<List<BookCaseRspBody>> findBookCases(BookCaseReqQuery query, String page,
 			String size);
 
 	GeneralContentResult<BookCaseRspBody> findBookCaseById(String bookcaseId);
@@ -21,6 +22,8 @@ public interface BookCaseService {
 	GeneralResult updateBookCase(String bookcaseId,
 			BookCaseReqBody bookCaseReqBody);
 
-	GeneralResult deleteBookCases(BookCaseReqParam bookCaseReqParam);
+	GeneralResult deleteBookCases(String bookcaseId);
+
+	GeneralContentResult<List<BookCaseRspBody>> findBookCaseByName(String name);
 
 }
